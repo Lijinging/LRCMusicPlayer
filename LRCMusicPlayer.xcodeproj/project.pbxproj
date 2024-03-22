@@ -11,6 +11,7 @@
 		F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F608248D2BAD7CAA0009E75D /* ContentView.swift */; };
 		F60824902BAD7CAC0009E75D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F608248F2BAD7CAC0009E75D /* Assets.xcassets */; };
 		F60824942BAD7CAC0009E75D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F60824932BAD7CAC0009E75D /* Preview Assets.xcassets */; };
+		F608249B2BAD7CD00009E75D /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		F608248F2BAD7CAC0009E75D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F60824912BAD7CAC0009E75D /* LRCMusicPlayer.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LRCMusicPlayer.entitlements; sourceTree = "<group>"; };
 		F60824932BAD7CAC0009E75D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 				F608248F2BAD7CAC0009E75D /* Assets.xcassets */,
 				F60824912BAD7CAC0009E75D /* LRCMusicPlayer.entitlements */,
 				F60824922BAD7CAC0009E75D /* Preview Content */,
+				F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */,
 			);
 			path = LRCMusicPlayer;
 			sourceTree = "<group>";
@@ -139,6 +142,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F608249B2BAD7CD00009E75D /* MusicPlayerView.swift in Sources */,
 				F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */,
 				F608248C2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift in Sources */,
 			);
@@ -292,7 +296,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lijing.LRCMusicPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -330,7 +335,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.lijing.LRCMusicPlayer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = auto;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
