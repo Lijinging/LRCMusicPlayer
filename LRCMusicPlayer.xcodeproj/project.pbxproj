@@ -13,6 +13,8 @@
 		F60824942BAD7CAC0009E75D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F60824932BAD7CAC0009E75D /* Preview Assets.xcassets */; };
 		F608249B2BAD7CD00009E75D /* MusicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */; };
 		F608249E2BAD84340009E75D /* FileList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F608249D2BAD84340009E75D /* FileList.swift */; };
+		F60824A12BAD964D0009E75D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F60824A02BAD964D0009E75D /* AVFoundation.framework */; };
+		F60824A32BAD965D0009E75D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60824A22BAD965D0009E75D /* AudioPlayer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +27,8 @@
 		F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerView.swift; sourceTree = "<group>"; };
 		F608249C2BAD82FF0009E75D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F608249D2BAD84340009E75D /* FileList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileList.swift; sourceTree = "<group>"; };
+		F60824A02BAD964D0009E75D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS17.4.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		F60824A22BAD965D0009E75D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F60824A12BAD964D0009E75D /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -43,6 +48,7 @@
 			children = (
 				F608248A2BAD7CAA0009E75D /* LRCMusicPlayer */,
 				F60824892BAD7CAA0009E75D /* Products */,
+				F608249F2BAD964D0009E75D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -65,6 +71,7 @@
 				F60824922BAD7CAC0009E75D /* Preview Content */,
 				F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */,
 				F608249D2BAD84340009E75D /* FileList.swift */,
+				F60824A22BAD965D0009E75D /* AudioPlayer.swift */,
 			);
 			path = LRCMusicPlayer;
 			sourceTree = "<group>";
@@ -75,6 +82,14 @@
 				F60824932BAD7CAC0009E75D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		F608249F2BAD964D0009E75D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F60824A02BAD964D0009E75D /* AVFoundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +164,7 @@
 			files = (
 				F608249B2BAD7CD00009E75D /* MusicPlayerView.swift in Sources */,
 				F608249E2BAD84340009E75D /* FileList.swift in Sources */,
+				F60824A32BAD965D0009E75D /* AudioPlayer.swift in Sources */,
 				F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */,
 				F608248C2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift in Sources */,
 			);

@@ -29,17 +29,20 @@ struct FileInfo {
     let type: String // 文件格式
     let isDirectory: Bool // 是否是文件夹
     let hasLRC: Bool // 是否有同名的.lrc文件
+    let filePath: URL
 }
 
 // 歌单页面视图
 struct PlaylistView: View {
     @State private var files: [FileInfo] = []
-    @State private var currentPath: URL? = nil
+    @State private var currentDir: URL? = nil
+    @State private var showMusicPlayer: Bool = false
+    @State private var selectedMusic: FileInfo? = nil
     
     var body: some View {
         List(files, id: \.name) { file in
             HStack {
-                if (file.isDirectory) {
+                if file.isDirectory {
                     Image(systemName: "folder")
                 } else {
                     FileFormatLabel(format: file.type)
@@ -52,18 +55,22 @@ struct PlaylistView: View {
             }
             .contentShape(Rectangle())
             .onTapGesture {
+                let fullPath = file.filePath
                 if file.isDirectory {
-                    let newPath = currentPath?.appendingPathComponent(file.name) ?? FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(file.name)
-                    loadFiles(from: newPath)
-                    currentPath = newPath
+                    loadFiles(from: fullPath)
+                    self.currentDir = fullPath
                 } else {
-                    let musicPath = currentPath?.appendingPathComponent(file.name) ?? FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent(file.name)
-                    print("Will play music: ", musicPath)
-                    
+                    self.selectedMusic = file
+                    self.showMusicPlayer = true
                 }
             }
         }
         .onAppear(perform: { loadFiles() })
+        .fullScreenCover(isPresented: $showMusicPlayer) {
+            MusicPlayerView(filePath: selectedMusic?.filePath, dismiss: {
+                self.showMusicPlayer = false
+            })
+        }
     }
     
     func loadFiles(from directory: URL? = nil) {
@@ -82,7 +89,7 @@ struct PlaylistView: View {
                 if isDirectory || ["mp3", "aac", "flac", "wav", "m4a", "mp4"].contains(url.pathExtension) {
                     let hasLRC = fileURLs.contains { $0.deletingPathExtension().lastPathComponent == url.deletingPathExtension().lastPathComponent && $0.pathExtension == "lrc" }
                     
-                    newFiles.append(FileInfo(name: url.deletingPathExtension().lastPathComponent, type: url.pathExtension, isDirectory: isDirectory, hasLRC: hasLRC))
+                    newFiles.append(FileInfo(name: url.deletingPathExtension().lastPathComponent, type: url.pathExtension, isDirectory: isDirectory, hasLRC: hasLRC, filePath:url))
                 }
             }
             
