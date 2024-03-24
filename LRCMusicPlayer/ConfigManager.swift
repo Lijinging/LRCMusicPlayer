@@ -7,6 +7,12 @@
 
 import Foundation
 
+let kCyclicModeType_None = 0
+let kCyclicModeType_Single = 1
+let kCyclicModeType_List = 2
+
+let kCyclicModeType_Name = ["不循环", "单曲循环", "列表循环"]
+
 class ConfigManager: ObservableObject {
     static let shared = ConfigManager()
     
@@ -16,9 +22,9 @@ class ConfigManager: ObservableObject {
         }
     }
     
-    @Published var selectedOption: String {
+    @Published var cyclicMode: String {
         didSet {
-            UserDefaults.standard.set(selectedOption, forKey: "selectedOption")
+            UserDefaults.standard.set(Int(cyclicMode), forKey: "cyclicMode")
         }
     }
     
@@ -28,21 +34,35 @@ class ConfigManager: ObservableObject {
         }
     }
     
-    @Published var rampDuration: Float {
+    @Published var rampDuration: String {
         didSet {
-            UserDefaults.standard.set(rampDuration, forKey: "rampDuration")
+            UserDefaults.standard.set(Float(rampDuration), forKey: "rampDuration")
+        }
+    }
+    
+    public var getCycleModeStr:String {
+        switch Int(cyclicMode) {
+        case kCyclicModeType_None: return "不循环"
+        case kCyclicModeType_Single: return "单曲循环"
+        case kCyclicModeType_List: return "列表循环"
+        case .none:
+            return "不循环"
+        case .some(_):
+            return "不循环"
         }
     }
 
     private init() {
         UserDefaults.standard.register(defaults: [
             "enabledVolumeRamp": true,
-            "rampDuration": 1.6
+            "rampDuration": 1.6,
+            "cyclicMode": kCyclicModeType_None,
+            "fontSize": "24"
         ])
         
         self.enabledVolumeRamp = UserDefaults.standard.bool(forKey: "enabledVolumeRamp")
-        self.selectedOption = UserDefaults.standard.string(forKey: "selectedOption") ?? "Option 1"
+        self.cyclicMode = String(UserDefaults.standard.float(forKey: "cyclicMode"))
         self.fontSize = UserDefaults.standard.string(forKey: "fontSize") ?? ""
-        self.rampDuration = UserDefaults.standard.float(forKey: "rampDuration")
+        self.rampDuration = String(UserDefaults.standard.float(forKey: "rampDuration"))
     }
 }

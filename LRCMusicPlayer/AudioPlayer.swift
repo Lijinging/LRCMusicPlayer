@@ -17,6 +17,8 @@ class AudioPlayer {
     private let volumeRampStep: Float = 0.08
     private let rampInterval: TimeInterval = 0.05
     private var currentPlaybackTime: TimeInterval = 0
+    
+    static let shared = AudioPlayer()
 
 
     init() {

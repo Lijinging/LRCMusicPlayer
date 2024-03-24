@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F601E16C2BAFF82600B4A7D4 /* PlayContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = F601E16B2BAFF82600B4A7D4 /* PlayContext.swift */; };
+		F601E16E2BB0419E00B4A7D4 /* LRCLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */; };
+		F601E1702BB04A6800B4A7D4 /* LRCPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */; };
 		F608248C2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F608248B2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift */; };
 		F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F608248D2BAD7CAA0009E75D /* ContentView.swift */; };
 		F60824902BAD7CAC0009E75D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F608248F2BAD7CAC0009E75D /* Assets.xcassets */; };
@@ -20,6 +23,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F601E16B2BAFF82600B4A7D4 /* PlayContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayContext.swift; sourceTree = "<group>"; };
+		F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRCLoader.swift; sourceTree = "<group>"; };
+		F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRCPreviewView.swift; sourceTree = "<group>"; };
 		F60824882BAD7CAA0009E75D /* LRCMusicPlayer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LRCMusicPlayer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F608248B2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LRCMusicPlayerApp.swift; sourceTree = "<group>"; };
 		F608248D2BAD7CAA0009E75D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -78,6 +84,9 @@
 				F60824A22BAD965D0009E75D /* AudioPlayer.swift */,
 				F60824A42BADE7640009E75D /* SettingView.swift */,
 				F60824A62BADE92D0009E75D /* ConfigManager.swift */,
+				F601E16B2BAFF82600B4A7D4 /* PlayContext.swift */,
+				F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */,
+				F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */,
 			);
 			path = LRCMusicPlayer;
 			sourceTree = "<group>";
@@ -169,12 +178,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				F608249B2BAD7CD00009E75D /* MusicPlayerView.swift in Sources */,
+				F601E1702BB04A6800B4A7D4 /* LRCPreviewView.swift in Sources */,
 				F608249E2BAD84340009E75D /* FileList.swift in Sources */,
 				F60824A32BAD965D0009E75D /* AudioPlayer.swift in Sources */,
 				F60824A52BADE7640009E75D /* SettingView.swift in Sources */,
 				F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */,
+				F601E16E2BB0419E00B4A7D4 /* LRCLoader.swift in Sources */,
 				F60824A72BADE92D0009E75D /* ConfigManager.swift in Sources */,
 				F608248C2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift in Sources */,
+				F601E16C2BAFF82600B4A7D4 /* PlayContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

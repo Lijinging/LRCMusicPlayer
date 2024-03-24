@@ -6,49 +6,27 @@
 //
 
 import Foundation
+import AVFoundation
 import SwiftUI
-
-struct Lyric {
-    let time: TimeInterval
-    let text: String
-}
 
 var flag: Bool = true;
 
 // 主视图
 struct MusicPlayerView: View {
-    // 假设这是你的歌词数组
-    let lyrics: [Lyric] = [
-        Lyric(time: 0, text: "Here is the first line of a song"),
-        Lyric(time: 15, text: "Here is the second line of the song"),
-        Lyric(time: 40, text: "Here is the second line of the song"),
-        Lyric(time: 41, text: "Here is the second line of the  s the second line of the  song"),
-        Lyric(time: 44, text: "Here is the second line of the song"),
-        Lyric(time: 45, text: "Here is the second line of the song"),
-        Lyric(time: 15, text: "Here is the second line of the song"),
-        Lyric(time: 15, text: "Here is the second line of the song"),
-        // 添加更多歌词...
-    ]
-    
     @State private var isPlaying = false // 播放状态
     @State private var currentLyricIndex = 0 // 当前显示的歌词索引
     @State private var currentProgress: Double = 0.0
     var songDuration: Double = 240.0
-    private var audioPath: URL?
-    private let audioPlayer:AudioPlayer
+    private let playContext:PlayContext = PlayContext.shared
+    private let audioPlayer:AudioPlayer = AudioPlayer.shared
     private var needCheckProgress: Bool = true;
     let dissmiss: () -> Void?
     
-    private let progressInterval: TimeInterval = 0.2
-    private let progressTimer = Timer.publish(every: 0.2, on: .main, in: .common).autoconnect()
+    private let progressTimer = Timer.publish(every: 0.1, on: .main, in: .common).autoconnect()
     
-    init(filePath: URL?, dismiss: @escaping () -> Void?) {
-        self.audioPath = filePath
-        self.audioPlayer = AudioPlayer()
+    init(dismiss: @escaping () -> Void?) {
         self.dissmiss = dismiss
-        if let path = self.audioPath {
-            audioPlayer.loadFile(from: path)
-        }
+        audioPlayer.loadFile(from: playContext.currentMusicPath)
         self.songDuration = audioPlayer.songInfo?.duration ?? 240.0
     }
     
@@ -65,7 +43,7 @@ struct MusicPlayerView: View {
                     
                     Spacer()
                     
-                    Text("Song Title Here")
+                    Text(playContext.currentMusicName)
                         .font(.headline)
                     
                     Spacer()
@@ -79,16 +57,7 @@ struct MusicPlayerView: View {
                 }
                 .padding()
                 
-                // 歌词区域
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        ForEach(0..<lyrics.count, id: \.self) { index in
-                            Text(lyrics[index].text)
-                                .padding(.vertical)
-                                // 可以根据需要调整歌词的样式
-                        }
-                    }
-                }
+                LRCPreviewView()
                 
                 // 进度条和时间
                 HStack {
@@ -115,21 +84,28 @@ struct MusicPlayerView: View {
                         self.currentProgress = self.audioPlayer.currentTime
                         if self.currentProgress > self.songDuration {
                             self.currentProgress = self.songDuration
-                            self.progressTimer.upstream.connect().cancel() // 当达到歌曲总时长时，停止定时器
+                            self.progressTimer.upstream.connect().cancel()
                         }
                     }
                 }
                 
                 // 底部控制按钮
                  HStack(spacing: 40) {
-                     Button(action: {
-                         // 变调操作
-                     }) {
+                     Menu {
+                         Button("+4", action: {AudioPlayer.shared.setPitch(400)})
+                         Button("+3", action: {AudioPlayer.shared.setPitch(300)})
+                         Button("+2", action: {AudioPlayer.shared.setPitch(200)})
+                         Button("+1", action: {AudioPlayer.shared.setPitch(100)})
+                         Button(" 0", action: {AudioPlayer.shared.setPitch(0)})
+                         Button("-1", action: {AudioPlayer.shared.setPitch(-100)})
+                         Button("-2", action: {AudioPlayer.shared.setPitch(-200)})
+                         Button("-3", action: {AudioPlayer.shared.setPitch(-300)})
+                         Button("-4", action: {AudioPlayer.shared.setPitch(-400)})
+                     } label: {
                          Image(systemName: "music.note")
                      }
                      
                      Button(action: {
-                         // 上一曲操作
                      }) {
                          Image(systemName: "backward.end.fill")
                      }
@@ -161,8 +137,20 @@ struct MusicPlayerView: View {
                  }
                  .padding()
             }
-            .navigationBarHidden(true) // 隐藏默认的导航栏，因为我们自定义了顶部控件
+//            .navigationBarHidden(true) // 隐藏默认的导航栏，因为我们自定义了顶部控件
         }
+        .onAppear() {
+            let session = AVAudioSession.sharedInstance()
+            do {
+              try session.setActive(true)
+              try session.setCategory(AVAudioSession.Category.playback)
+            } catch {
+              print(error)
+            }
+        }.gesture(DragGesture().onEnded { gesture in
+            if gesture.translation.width > 100 {
+                self.dissmiss()
+            }        })
     }
     
     func enableCheckProgress () {
@@ -184,6 +172,6 @@ struct MusicPlayerView: View {
 
 struct MusicPlayerView_Previews: PreviewProvider {
     static var previews: some View {
-        MusicPlayerView(filePath: nil, dismiss: {})
+        MusicPlayerView(dismiss: {})
     }
 }

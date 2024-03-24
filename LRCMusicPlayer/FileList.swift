@@ -103,13 +103,17 @@ struct PlaylistView: View {
                         } else {
                             self.selectedMusic = file
                             self.showMusicPlayer = true
+                            PlayContext.shared.currentMusicHasLRC = file.hasLRC
+                            PlayContext.shared.currentMusicName = file.name
+                            PlayContext.shared.currentMusicPath = file.filePath
+                            PlayContext.shared.currentMusicType = file.type
                         }
                     }
                 }
             }
             .onAppear(perform: { loadFiles() })
             .fullScreenCover(isPresented: $showMusicPlayer) {
-                MusicPlayerView(filePath: selectedMusic?.filePath, dismiss: {
+                MusicPlayerView(dismiss: {
                     self.showMusicPlayer = false
                 })
             }

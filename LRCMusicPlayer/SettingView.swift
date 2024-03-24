@@ -16,12 +16,22 @@ struct SettingsView: View {
                 Toggle(isOn: $configManager.enabledVolumeRamp) {
                     Text("淡入淡出")
                 }
+                
+                HStack {
+                    Text("淡入淡出时长")
+                    Spacer()
+                    TextField("1.6", text: $configManager.rampDuration)
+                        .frame(width: 100)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
+                }
 
-                NavigationLink(destination: SelectOptionView(selectedOption: $configManager.selectedOption)) {
+                NavigationLink(destination: SelectOptionView(cycleModeStr: $configManager.cyclicMode)) {
                     HStack {
-                        Text("选择选项")
+                        Text("循环模式")
                         Spacer()
-                        Text(configManager.selectedOption)
+                        Text(configManager.getCycleModeStr)
                             .foregroundColor(.gray)
                     }
                 }
@@ -29,7 +39,7 @@ struct SettingsView: View {
                 HStack {
                     Text("字号")
                     Spacer()
-                    TextField("18", text: $configManager.fontSize)
+                    TextField("24", text: $configManager.fontSize)
                         .frame(width: 100)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
@@ -42,22 +52,22 @@ struct SettingsView: View {
 }
 
 struct SelectOptionView: View {
-    @Binding var selectedOption: String
-    let options = ["Option 1", "Option 2", "Option 3"]
+    @Binding var cycleModeStr: String
+    let options = ["不循环", "单曲循环", "列表循环"]
 
     var body: some View {
         List(options, id: \.self) { option in
             HStack {
                 Text(option)
                 Spacer()
-                if option == selectedOption {
+                if option == cycleModeStr {
                     Image(systemName: "checkmark")
                         .foregroundColor(.blue)
                 }
             }
             .contentShape(Rectangle())
             .onTapGesture {
-                selectedOption = option
+                cycleModeStr = option
             }
         }
         .navigationBarTitle("选择选项", displayMode: .inline)
