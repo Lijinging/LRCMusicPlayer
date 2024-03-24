@@ -8,10 +8,9 @@
 import Foundation
 import SwiftUI
 
-// 定义一个简单的歌词模型
 struct Lyric {
-    let time: TimeInterval // 时间戳，用于同步
-    let text: String // 歌词文本
+    let time: TimeInterval
+    let text: String
 }
 
 var flag: Bool = true;

@@ -38,40 +38,82 @@ struct PlaylistView: View {
     @State private var currentDir: URL? = nil
     @State private var showMusicPlayer: Bool = false
     @State private var selectedMusic: FileInfo? = nil
+    @State private var showAddMenu: Bool = false
+    @State private var showSettingsMenu: Bool = false
     
     var body: some View {
-        List(files, id: \.name) { file in
-            HStack {
-                if file.isDirectory {
-                    Image(systemName: "folder")
-                } else {
-                    FileFormatLabel(format: file.type)
-                }
-                Text(file.name)
-                if file.hasLRC {
+            VStack {
+                HStack {
+//                    Button(action: {
+//                        self.showAddMenu = true
+//                    }) {
+//                        Image(systemName: "plus")
+//                    }
+//                    .padding()
+//                    .sheet(isPresented: $showAddMenu) {
+//                        Text("plus")
+//                    }
+                    Menu {
+                        Button("Option 1", action: {})
+                        Button("Option 2", action: {})
+                    } label: {
+                        Image(systemName: "plus")
+                    }.padding()
+
                     Spacer()
-                    Image(systemName: "music.note.list")
+                    
+                    
+//                    Menu {
+//                        Button("Option 1", action: {})
+//                        Button("Option 2", action: {})
+//                    } label: {
+//                        Image(systemName: "gear")
+//                    }.padding()
+
+                    Button(action: {
+                        self.showSettingsMenu = true
+                    }) {
+                        Image(systemName: "gear")
+                    }
+                    .padding()
+                    .sheet(isPresented: $showSettingsMenu) {
+                        SettingsView()
+                    }
+                }
+
+                List(files, id: \.name) { file in
+                    HStack {
+                        if file.isDirectory {
+                            Image(systemName: "folder")
+                        } else {
+                            FileFormatLabel(format: file.type) // 假设您已定义FileFormatLabel视图
+                        }
+                        Text(file.name)
+                        if file.hasLRC {
+                            Spacer()
+                            Image(systemName: "music.note.list")
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        let fullPath = file.filePath
+                        if file.isDirectory {
+                            loadFiles(from: fullPath)
+                            self.currentDir = fullPath
+                        } else {
+                            self.selectedMusic = file
+                            self.showMusicPlayer = true
+                        }
+                    }
                 }
             }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                let fullPath = file.filePath
-                if file.isDirectory {
-                    loadFiles(from: fullPath)
-                    self.currentDir = fullPath
-                } else {
-                    self.selectedMusic = file
-                    self.showMusicPlayer = true
-                }
+            .onAppear(perform: { loadFiles() })
+            .fullScreenCover(isPresented: $showMusicPlayer) {
+                MusicPlayerView(filePath: selectedMusic?.filePath, dismiss: {
+                    self.showMusicPlayer = false
+                })
             }
         }
-        .onAppear(perform: { loadFiles() })
-        .fullScreenCover(isPresented: $showMusicPlayer) {
-            MusicPlayerView(filePath: selectedMusic?.filePath, dismiss: {
-                self.showMusicPlayer = false
-            })
-        }
-    }
     
     func loadFiles(from directory: URL? = nil) {
         let fileManager = FileManager.default
