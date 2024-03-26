@@ -17,6 +17,7 @@ class AudioPlayer {
     private let volumeRampStep: Float = 0.08
     private let rampInterval: TimeInterval = 0.05
     private var currentPlaybackTime: TimeInterval = 0
+    private var isPaused: Bool = false
     
     static let shared = AudioPlayer()
 
@@ -66,10 +67,15 @@ class AudioPlayer {
     func pause() {
         fadeOut { [weak self] in
             self?.audioPlayerNode.pause()
+            self?.isPaused = true // 在暂停时更新状态
+            self?.updateCurrentPlaybackTime()
         }
     }
 
     func resume() {
+        // 在恢复播放前更新当前播放时间
+        updateCurrentPlaybackTime()
+        isPaused = false // 重置暂停状态
         try? audioEngine.start()
         fadeIn()
     }
@@ -87,13 +93,17 @@ class AudioPlayer {
 
     func seek(to time: TimeInterval) {
         guard let audioFile = audioFile else { return }
-        
-        currentPlaybackTime = time
-        
+                
+        isPaused = false // 重置暂停状态
+        currentPlaybackTime = time // 更新播放时间
+
         let sampleRate = audioFile.processingFormat.sampleRate
         let framePosition = AVAudioFramePosition(time * sampleRate)
         audioPlayerNode.stop()
-        
+
+        audioEngine.stop() // 确保在调度新片段前引擎停止
+        try? audioEngine.start() // 重启引擎
+
         audioPlayerNode.scheduleSegment(audioFile, startingFrame: framePosition, frameCount: AVAudioFrameCount(audioFile.length - framePosition), at: nil, completionHandler: nil)
         audioPlayerNode.play()
     }
@@ -109,9 +119,17 @@ class AudioPlayer {
     var currentTime: TimeInterval {
         if let nodeTime = audioPlayerNode.lastRenderTime, let playerTime = audioPlayerNode.playerTime(forNodeTime: nodeTime) {
             let timeSinceSeek = Double(playerTime.sampleTime) / playerTime.sampleRate
-            return timeSinceSeek + currentPlaybackTime;
+            return timeSinceSeek + currentPlaybackTime // 确保加上之前已播放的时间
         }
-        return 0
+        return currentPlaybackTime
+    }
+    
+    @discardableResult
+    private func updateCurrentPlaybackTime() -> TimeInterval {
+        if let nodeTime = audioPlayerNode.lastRenderTime, let playerTime = audioPlayerNode.playerTime(forNodeTime: nodeTime) {
+            currentPlaybackTime = Double(playerTime.sampleTime) / playerTime.sampleRate
+        }
+        return currentPlaybackTime
     }
     
     private func fadeIn() {
