@@ -62,6 +62,8 @@ struct MusicPlayerView: View {
                 // 进度条和时间
                 HStack {
                     Text("\(formatTime(seconds: currentProgress))")
+                        .frame(width: 40, alignment: .leading)
+                        .font(.system(size: 14))
                     Spacer()
                     Slider(value: $currentProgress, in: 0...songDuration) {
                             Text("Progress")
@@ -77,6 +79,8 @@ struct MusicPlayerView: View {
                     Spacer()
                     // 显示歌曲总时长
                     Text("\(formatTime(seconds: songDuration))")
+                        .frame(width: 40, alignment: .trailing)
+                        .font(.system(size: 14))
                 }
                 .padding()
                 .onReceive(progressTimer) { _ in
