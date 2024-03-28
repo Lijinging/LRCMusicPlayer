@@ -44,15 +44,6 @@ struct PlaylistView: View {
     var body: some View {
             VStack {
                 HStack {
-//                    Button(action: {
-//                        self.showAddMenu = true
-//                    }) {
-//                        Image(systemName: "plus")
-//                    }
-//                    .padding()
-//                    .sheet(isPresented: $showAddMenu) {
-//                        Text("plus")
-//                    }
                     Menu {
                         Button("Option 1", action: {})
                         Button("Option 2", action: {})
@@ -61,14 +52,6 @@ struct PlaylistView: View {
                     }.padding()
 
                     Spacer()
-                    
-                    
-//                    Menu {
-//                        Button("Option 1", action: {})
-//                        Button("Option 2", action: {})
-//                    } label: {
-//                        Image(systemName: "gear")
-//                    }.padding()
 
                     Button(action: {
                         self.showSettingsMenu = true
@@ -116,7 +99,11 @@ struct PlaylistView: View {
                 MusicPlayerView(dismiss: {
                     self.showMusicPlayer = false
                 })
-            }
+            }.gesture(DragGesture().onEnded { gesture in
+                if gesture.translation.width < 100 {
+                    self.showMusicPlayer = true
+                }
+            })
         }
     
     func loadFiles(from directory: URL? = nil) {

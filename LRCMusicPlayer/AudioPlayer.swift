@@ -17,7 +17,8 @@ class AudioPlayer {
     private let volumeRampStep: Float = 0.08
     private let rampInterval: TimeInterval = 0.05
     private var currentPlaybackTime: TimeInterval = 0
-    private var isPaused: Bool = false
+    private var timeSinceSeek: TimeInterval = 0
+    var isPaused: Bool = false
     
     static let shared = AudioPlayer()
 
@@ -41,6 +42,10 @@ class AudioPlayer {
                 print("Failed to load file: \(error)")
             }
         }
+    }
+    
+    func isLoaded() -> Bool {
+        return audioFile != nil
     }
 
     func loadFile(from path: URL) {
@@ -118,10 +123,10 @@ class AudioPlayer {
     
     var currentTime: TimeInterval {
         if let nodeTime = audioPlayerNode.lastRenderTime, let playerTime = audioPlayerNode.playerTime(forNodeTime: nodeTime) {
-            let timeSinceSeek = Double(playerTime.sampleTime) / playerTime.sampleRate
+            timeSinceSeek = Double(playerTime.sampleTime) / playerTime.sampleRate
             return timeSinceSeek + currentPlaybackTime // 确保加上之前已播放的时间
         }
-        return currentPlaybackTime
+        return timeSinceSeek + currentPlaybackTime
     }
     
     @discardableResult

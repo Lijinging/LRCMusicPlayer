@@ -11,7 +11,6 @@ import SwiftUI
 
 var flag: Bool = true;
 
-// 主视图
 struct MusicPlayerView: View {
     @State private var isPlaying = false // 播放状态
     @State private var currentLyricIndex = 0 // 当前显示的歌词索引
@@ -27,7 +26,12 @@ struct MusicPlayerView: View {
     
     init(dismiss: @escaping () -> Void?) {
         self.dissmiss = dismiss
-        audioPlayer.loadFile(from: playContext.currentMusicPath)
+        if audioPlayer.isLoaded() && audioPlayer.isPaused {
+            audioPlayer.loadFile(from: playContext.currentMusicPath)
+        }
+        if !audioPlayer.isLoaded() {
+            audioPlayer.loadFile(from: playContext.currentMusicPath)
+        }
         self.songDuration = audioPlayer.songInfo?.duration ?? 240.0
     }
     
@@ -151,7 +155,8 @@ struct MusicPlayerView: View {
         }.gesture(DragGesture().onEnded { gesture in
             if gesture.translation.width > 100 {
                 self.dissmiss()
-            }        })
+            }
+        })
     }
     
     func enableCheckProgress () {

@@ -21,6 +21,8 @@
 		F60824A52BADE7640009E75D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60824A42BADE7640009E75D /* SettingView.swift */; };
 		F60824A72BADE92D0009E75D /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60824A62BADE92D0009E75D /* ConfigManager.swift */; };
 		F6F061692BB530F500A2EB81 /* LyricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */; };
+		F6F0616D2BB58E3500A2EB81 /* PlayControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0616C2BB58E3500A2EB81 /* PlayControllerView.swift */; };
+		F6F0616F2BB5925800A2EB81 /* MusicPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F0616E2BB5925800A2EB81 /* MusicPlayerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +43,8 @@
 		F60824A42BADE7640009E75D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		F60824A62BADE92D0009E75D /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
 		F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsViewModel.swift; sourceTree = "<group>"; };
+		F6F0616C2BB58E3500A2EB81 /* PlayControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayControllerView.swift; sourceTree = "<group>"; };
+		F6F0616E2BB5925800A2EB81 /* MusicPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicPlayerViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */,
 				F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */,
 				F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */,
+				F6F0616C2BB58E3500A2EB81 /* PlayControllerView.swift */,
+				F6F0616E2BB5925800A2EB81 /* MusicPlayerViewModel.swift */,
 			);
 			path = LRCMusicPlayer;
 			sourceTree = "<group>";
@@ -184,10 +190,12 @@
 				F601E1702BB04A6800B4A7D4 /* LRCPreviewView.swift in Sources */,
 				F608249E2BAD84340009E75D /* FileList.swift in Sources */,
 				F6F061692BB530F500A2EB81 /* LyricsViewModel.swift in Sources */,
+				F6F0616F2BB5925800A2EB81 /* MusicPlayerViewModel.swift in Sources */,
 				F60824A32BAD965D0009E75D /* AudioPlayer.swift in Sources */,
 				F60824A52BADE7640009E75D /* SettingView.swift in Sources */,
 				F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */,
 				F601E16E2BB0419E00B4A7D4 /* LRCLoader.swift in Sources */,
+				F6F0616D2BB58E3500A2EB81 /* PlayControllerView.swift in Sources */,
 				F60824A72BADE92D0009E75D /* ConfigManager.swift in Sources */,
 				F608248C2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift in Sources */,
 				F601E16C2BAFF82600B4A7D4 /* PlayContext.swift in Sources */,
@@ -231,7 +239,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
