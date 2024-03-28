@@ -68,7 +68,9 @@ func parseTime(_ timeString: String) -> TimeInterval? {
             var millisecond = TimeInterval(0)
             
             if let millisecondStr = Range(millisecondRange, in: timeString) {
-                millisecond = TimeInterval((timeString[millisecondStr] as NSString).doubleValue) / 100.0
+                let millisecondText = String(timeString[millisecondStr])
+                let millisecondValue = (millisecondText as NSString).doubleValue
+                millisecond = millisecondValue / (millisecondText.count == 2 ? 100 : 1000)
             }
             
             return minute * 60 + second + millisecond

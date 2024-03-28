@@ -20,6 +20,7 @@
 		F60824A32BAD965D0009E75D /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60824A22BAD965D0009E75D /* AudioPlayer.swift */; };
 		F60824A52BADE7640009E75D /* SettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60824A42BADE7640009E75D /* SettingView.swift */; };
 		F60824A72BADE92D0009E75D /* ConfigManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F60824A62BADE92D0009E75D /* ConfigManager.swift */; };
+		F6F061692BB530F500A2EB81 /* LyricsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,7 @@
 		F60824A22BAD965D0009E75D /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		F60824A42BADE7640009E75D /* SettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingView.swift; sourceTree = "<group>"; };
 		F60824A62BADE92D0009E75D /* ConfigManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigManager.swift; sourceTree = "<group>"; };
+		F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LyricsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 				F601E16B2BAFF82600B4A7D4 /* PlayContext.swift */,
 				F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */,
 				F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */,
+				F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */,
 			);
 			path = LRCMusicPlayer;
 			sourceTree = "<group>";
@@ -180,6 +183,7 @@
 				F608249B2BAD7CD00009E75D /* MusicPlayerView.swift in Sources */,
 				F601E1702BB04A6800B4A7D4 /* LRCPreviewView.swift in Sources */,
 				F608249E2BAD84340009E75D /* FileList.swift in Sources */,
+				F6F061692BB530F500A2EB81 /* LyricsViewModel.swift in Sources */,
 				F60824A32BAD965D0009E75D /* AudioPlayer.swift in Sources */,
 				F60824A52BADE7640009E75D /* SettingView.swift in Sources */,
 				F608248E2BAD7CAA0009E75D /* ContentView.swift in Sources */,
@@ -332,7 +336,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;
@@ -373,7 +377,7 @@
 				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 14.2;

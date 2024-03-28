@@ -16,6 +16,7 @@ struct MusicPlayerView: View {
     @State private var isPlaying = false // 播放状态
     @State private var currentLyricIndex = 0 // 当前显示的歌词索引
     @State private var currentProgress: Double = 0.0
+    @State private var lrcView: LRCPreviewView = LRCPreviewView()
     var songDuration: Double = 240.0
     private let playContext:PlayContext = PlayContext.shared
     private let audioPlayer:AudioPlayer = AudioPlayer.shared
@@ -33,7 +34,6 @@ struct MusicPlayerView: View {
     var body: some View {
         NavigationView {
             VStack {
-                // 歌曲信息和控制按钮
                 HStack {
                     Button(action: {
                         self.dissmiss()
@@ -57,9 +57,8 @@ struct MusicPlayerView: View {
                 }
                 .padding()
                 
-                LRCPreviewView()
+                lrcView
                 
-                // 进度条和时间
                 HStack {
                     Text("\(formatTime(seconds: currentProgress))")
                         .frame(width: 40, alignment: .leading)
@@ -77,7 +76,6 @@ struct MusicPlayerView: View {
                         }
                         .accentColor(.blue) // 可以自定义滑块颜色
                     Spacer()
-                    // 显示歌曲总时长
                     Text("\(formatTime(seconds: songDuration))")
                         .frame(width: 40, alignment: .trailing)
                         .font(.system(size: 14))
@@ -93,7 +91,6 @@ struct MusicPlayerView: View {
                     }
                 }
                 
-                // 底部控制按钮
                  HStack(spacing: 40) {
                      Menu {
                          Button("+4", action: {AudioPlayer.shared.setPitch(400)})
@@ -123,7 +120,7 @@ struct MusicPlayerView: View {
                          isPlaying.toggle() // 切换播放状态
                      }) {
                          Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                             .font(.system(size: 44)) // 固定图标大小
+                             .font(.system(size: 44))
                      }
                      
                      Button(action: {
@@ -158,12 +155,10 @@ struct MusicPlayerView: View {
     }
     
     func enableCheckProgress () {
-//        self.needCheckProgress = true;
         flag = true;
     }
     
     func disableCheckProgress () {
-//        self.needCheckProgress = false;
         flag = false;
     }
     
