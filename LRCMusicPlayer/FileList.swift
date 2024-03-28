@@ -90,6 +90,8 @@ struct PlaylistView: View {
                             PlayContext.shared.currentMusicName = file.name
                             PlayContext.shared.currentMusicPath = file.filePath
                             PlayContext.shared.currentMusicType = file.type
+                            AudioPlayer.shared.stop()
+                            AudioPlayer.shared.loadFile(from: file.filePath)
                         }
                     }
                 }

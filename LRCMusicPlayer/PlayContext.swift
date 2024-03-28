@@ -19,6 +19,7 @@ class PlayContext: ObservableObject {
         didSet {
             UserDefaults.standard.set(currentMusicPath, forKey: "currentMusicPath")
             self.updateCurrentLRC()
+            self.currentTime = 0
         }
     }
     

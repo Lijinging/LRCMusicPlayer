@@ -24,6 +24,12 @@ class LRCViewModel: ObservableObject {
                 self?.updateCurrentLyricIndex(using: currentTime)
             }
             .store(in: &cancellables)
+        
+        playContext.$currentMusicPath
+            .sink { [weak self] _ in
+                self?.currentLyricIndex = 0
+            }
+            .store(in: &cancellables)
 
         if let lrcInfo = playContext.getCurrentLRC() {
             self.lyrics = lrcInfo.lyrics

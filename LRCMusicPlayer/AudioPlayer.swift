@@ -161,6 +161,9 @@ class AudioPlayer {
         audioFileURL = nil
         
         pitchControl.pitch = 0.0
+        
+        currentPlaybackTime = 0
+        timeSinceSeek = 0
     }
 
     private func fadeOut(completion: @escaping () -> Void) {
