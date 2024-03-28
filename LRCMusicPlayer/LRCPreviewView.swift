@@ -38,6 +38,12 @@ struct LRCPreviewView: View {
                     scrollView.scrollTo(newIndex, anchor: .center)
                 }
             }
+            .onAppear {
+                UIApplication.shared.isIdleTimerDisabled = true
+            }
+            .onDisappear {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
         }
     }
 }
