@@ -146,7 +146,7 @@ struct MusicPlayerView: View {
                                  .font(.system(size: 24))
                          }
                      }
-                     .padding(EdgeInsets(top: 0, leading: 100, bottom: 5, trailing: 100))
+                     .padding(EdgeInsets(top: 0, leading: 100, bottom: 26, trailing: 100))
                 }.background(Color.init(red: 0.96, green: 0.96, blue: 0.96))
             }
 //            .navigationBarHidden(true) // 隐藏默认的导航栏，因为我们自定义了顶部控件
