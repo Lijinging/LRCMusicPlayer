@@ -45,23 +45,24 @@ struct PlaylistView: View {
             VStack {
                 HStack {
                     Menu {
-                        Button("Option 1", action: {})
-                        Button("Option 2", action: {})
+                        Button("导入", action: {})
+                        Button("设置", action: {
+                            self.showSettingsMenu = true
+                        })
                     } label: {
-                        Image(systemName: "plus")
+                        Image(systemName: "plus.circle.fill")
+                            .font(.system(size: 24))
                     }.padding()
 
                     Spacer()
 
                     Button(action: {
-                        self.showSettingsMenu = true
+                        self.showMusicPlayer = true
                     }) {
-                        Image(systemName: "gear")
+                        Image(systemName: "play.circle.fill")
+                            .font(.system(size: 24))
                     }
                     .padding()
-                    .sheet(isPresented: $showSettingsMenu) {
-                        SettingsView()
-                    }
                 }
 
                 List(files, id: \.name) { file in
@@ -97,6 +98,9 @@ struct PlaylistView: View {
                 }
             }
             .onAppear(perform: { loadFiles() })
+            .sheet(isPresented: $showSettingsMenu) {
+                SettingsView()
+            }
             .fullScreenCover(isPresented: $showMusicPlayer) {
                 MusicPlayerView(dismiss: {
                     self.showMusicPlayer = false

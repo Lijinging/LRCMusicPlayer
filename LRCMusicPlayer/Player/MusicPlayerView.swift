@@ -64,88 +64,90 @@ struct MusicPlayerView: View {
                 
                 lrcView
                 
-                HStack {
-                    Text("\(formatTime(seconds: currentProgress))")
-                        .frame(width: 40, alignment: .leading)
-                        .font(.system(size: 14))
-                    Spacer()
-                    Slider(value: $currentProgress, in: 0...songDuration) {
-                            Text("Progress")
-                        } onEditingChanged: { editing in
-                            if (editing) {
-                                disableCheckProgress()
-                            } else {
-                                self.audioPlayer.seek(to: currentProgress)
-                                enableCheckProgress()
+                VStack {
+                    HStack {
+                        Text("\(formatTime(seconds: currentProgress))")
+                            .frame(width: 40, alignment: .leading)
+                            .font(.system(size: 14))
+                        Spacer()
+                        Slider(value: $currentProgress, in: 0...songDuration) {
+                                Text("Progress")
+                            } onEditingChanged: { editing in
+                                if (editing) {
+                                    disableCheckProgress()
+                                } else {
+                                    self.audioPlayer.seek(to: currentProgress)
+                                    enableCheckProgress()
+                                }
+                            }
+                            .accentColor(.blue) // 可以自定义滑块颜色
+                        Spacer()
+                        Text("\(formatTime(seconds: songDuration))")
+                            .frame(width: 40, alignment: .trailing)
+                            .font(.system(size: 14))
+                    }
+                    .padding()
+                    .onReceive(progressTimer) { _ in
+                        if (flag) {
+                            self.currentProgress = self.audioPlayer.currentTime
+                            if self.currentProgress > self.songDuration {
+                                self.currentProgress = self.songDuration
+                                self.progressTimer.upstream.connect().cancel()
                             }
                         }
-                        .accentColor(.blue) // 可以自定义滑块颜色
-                    Spacer()
-                    Text("\(formatTime(seconds: songDuration))")
-                        .frame(width: 40, alignment: .trailing)
-                        .font(.system(size: 14))
-                }
-                .padding()
-                .onReceive(progressTimer) { _ in
-                    if (flag) {
-                        self.currentProgress = self.audioPlayer.currentTime
-                        if self.currentProgress > self.songDuration {
-                            self.currentProgress = self.songDuration
-                            self.progressTimer.upstream.connect().cancel()
-                        }
                     }
-                }
-                
-                 HStack(spacing: 40) {
-                     Menu {
-                         Button("-4", action: {AudioPlayer.shared.setPitch(-400)})
-                         Button("-3", action: {AudioPlayer.shared.setPitch(-300)})
-                         Button("-2", action: {AudioPlayer.shared.setPitch(-200)})
-                         Button("-1", action: {AudioPlayer.shared.setPitch(-100)})
-                         Button(" 0", action: {AudioPlayer.shared.setPitch(0)})
-                         Button("+1", action: {AudioPlayer.shared.setPitch(100)})
-                         Button("+2", action: {AudioPlayer.shared.setPitch(200)})
-                         Button("+3", action: {AudioPlayer.shared.setPitch(300)})
-                         Button("+4", action: {AudioPlayer.shared.setPitch(400)})
-                     } label: {
-                         Image(systemName: "music.note")
-                             .font(.system(size: 24))
-                     }
-                     
-                     Button(action: {
-                     }) {
-                         Image(systemName: "backward.end.fill")
-                             .font(.system(size: 24))
-                     }
-                     
-                     Button(action: {
-                         if (isPlaying) {
-                             audioPlayer.pause()
-                         } else {
-                             audioPlayer.play()
+                    
+                     HStack(spacing: 40) {
+                         Menu {
+                             Button("-4", action: {AudioPlayer.shared.setPitch(-400)})
+                             Button("-3", action: {AudioPlayer.shared.setPitch(-300)})
+                             Button("-2", action: {AudioPlayer.shared.setPitch(-200)})
+                             Button("-1", action: {AudioPlayer.shared.setPitch(-100)})
+                             Button(" 0", action: {AudioPlayer.shared.setPitch(0)})
+                             Button("+1", action: {AudioPlayer.shared.setPitch(100)})
+                             Button("+2", action: {AudioPlayer.shared.setPitch(200)})
+                             Button("+3", action: {AudioPlayer.shared.setPitch(300)})
+                             Button("+4", action: {AudioPlayer.shared.setPitch(400)})
+                         } label: {
+                             Image(systemName: "music.note")
+                                 .font(.system(size: 24))
                          }
-                         isPlaying.toggle() // 切换播放状态
-                     }) {
-                         Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                             .font(.system(size: 50))
+                         
+                         Button(action: {
+                         }) {
+                             Image(systemName: "backward.end.fill")
+                                 .font(.system(size: 24))
+                         }
+                         
+                         Button(action: {
+                             if (isPlaying) {
+                                 audioPlayer.pause()
+                             } else {
+                                 audioPlayer.play()
+                             }
+                             isPlaying.toggle() // 切换播放状态
+                         }) {
+                             Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
+                                 .font(.system(size: 50))
+                         }
+                         
+                         Button(action: {
+                             // 下一曲操作
+                         }) {
+                             Image(systemName: "forward.end.fill")
+                                 .font(.system(size: 24))
+                         }
+                         
+                         Menu {
+                             Button("Playlist Option 1", action: {})
+                             Button("Playlist Option 2", action: {})
+                         } label: {
+                             Image(systemName: "music.note.list")
+                                 .font(.system(size: 24))
+                         }
                      }
-                     
-                     Button(action: {
-                         // 下一曲操作
-                     }) {
-                         Image(systemName: "forward.end.fill")
-                             .font(.system(size: 24))
-                     }
-                     
-                     Menu {
-                         Button("Playlist Option 1", action: {})
-                         Button("Playlist Option 2", action: {})
-                     } label: {
-                         Image(systemName: "music.note.list")
-                             .font(.system(size: 24))
-                     }
-                 }
-                 .padding(EdgeInsets(top: 0, leading: 100, bottom: 5, trailing: 100))
+                     .padding(EdgeInsets(top: 0, leading: 100, bottom: 5, trailing: 100))
+                }.background(Color.init(red: 0.96, green: 0.96, blue: 0.96))
             }
 //            .navigationBarHidden(true) // 隐藏默认的导航栏，因为我们自定义了顶部控件
         }
