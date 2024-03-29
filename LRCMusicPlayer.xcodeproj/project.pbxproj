@@ -79,23 +79,17 @@
 		F608248A2BAD7CAA0009E75D /* LRCMusicPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				F6F061742BB65E5C00A2EB81 /* Setting */,
+				F6F061732BB65E4700A2EB81 /* Lyric */,
+				F6F061722BB65E3300A2EB81 /* Context */,
+				F6F061712BB65E1400A2EB81 /* Player */,
+				F6F061702BB65E0C00A2EB81 /* FileManager */,
 				F608249C2BAD82FF0009E75D /* Info.plist */,
 				F608248B2BAD7CAA0009E75D /* LRCMusicPlayerApp.swift */,
 				F608248D2BAD7CAA0009E75D /* ContentView.swift */,
 				F608248F2BAD7CAC0009E75D /* Assets.xcassets */,
 				F60824912BAD7CAC0009E75D /* LRCMusicPlayer.entitlements */,
 				F60824922BAD7CAC0009E75D /* Preview Content */,
-				F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */,
-				F608249D2BAD84340009E75D /* FileList.swift */,
-				F60824A22BAD965D0009E75D /* AudioPlayer.swift */,
-				F60824A42BADE7640009E75D /* SettingView.swift */,
-				F60824A62BADE92D0009E75D /* ConfigManager.swift */,
-				F601E16B2BAFF82600B4A7D4 /* PlayContext.swift */,
-				F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */,
-				F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */,
-				F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */,
-				F6F0616C2BB58E3500A2EB81 /* PlayControllerView.swift */,
-				F6F0616E2BB5925800A2EB81 /* MusicPlayerViewModel.swift */,
 			);
 			path = LRCMusicPlayer;
 			sourceTree = "<group>";
@@ -114,6 +108,52 @@
 				F60824A02BAD964D0009E75D /* AVFoundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F6F061702BB65E0C00A2EB81 /* FileManager */ = {
+			isa = PBXGroup;
+			children = (
+				F608249D2BAD84340009E75D /* FileList.swift */,
+			);
+			path = FileManager;
+			sourceTree = "<group>";
+		};
+		F6F061712BB65E1400A2EB81 /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				F608249A2BAD7CD00009E75D /* MusicPlayerView.swift */,
+				F6F0616E2BB5925800A2EB81 /* MusicPlayerViewModel.swift */,
+				F6F0616C2BB58E3500A2EB81 /* PlayControllerView.swift */,
+				F60824A22BAD965D0009E75D /* AudioPlayer.swift */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		F6F061722BB65E3300A2EB81 /* Context */ = {
+			isa = PBXGroup;
+			children = (
+				F60824A62BADE92D0009E75D /* ConfigManager.swift */,
+				F601E16B2BAFF82600B4A7D4 /* PlayContext.swift */,
+			);
+			path = Context;
+			sourceTree = "<group>";
+		};
+		F6F061732BB65E4700A2EB81 /* Lyric */ = {
+			isa = PBXGroup;
+			children = (
+				F601E16D2BB0419E00B4A7D4 /* LRCLoader.swift */,
+				F601E16F2BB04A6800B4A7D4 /* LRCPreviewView.swift */,
+				F6F061682BB530F500A2EB81 /* LyricsViewModel.swift */,
+			);
+			path = Lyric;
+			sourceTree = "<group>";
+		};
+		F6F061742BB65E5C00A2EB81 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				F60824A42BADE7640009E75D /* SettingView.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

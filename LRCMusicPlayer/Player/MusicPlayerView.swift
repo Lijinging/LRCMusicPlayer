@@ -33,6 +33,7 @@ struct MusicPlayerView: View {
             audioPlayer.loadFile(from: playContext.currentMusicPath)
         }
         self.songDuration = audioPlayer.songInfo?.duration ?? 240.0
+        self.isPlaying = (audioPlayer.isLoaded() && !audioPlayer.isPaused)
     }
     
     var body: some View {
@@ -97,22 +98,24 @@ struct MusicPlayerView: View {
                 
                  HStack(spacing: 40) {
                      Menu {
-                         Button("+4", action: {AudioPlayer.shared.setPitch(400)})
-                         Button("+3", action: {AudioPlayer.shared.setPitch(300)})
-                         Button("+2", action: {AudioPlayer.shared.setPitch(200)})
-                         Button("+1", action: {AudioPlayer.shared.setPitch(100)})
-                         Button(" 0", action: {AudioPlayer.shared.setPitch(0)})
-                         Button("-1", action: {AudioPlayer.shared.setPitch(-100)})
-                         Button("-2", action: {AudioPlayer.shared.setPitch(-200)})
-                         Button("-3", action: {AudioPlayer.shared.setPitch(-300)})
                          Button("-4", action: {AudioPlayer.shared.setPitch(-400)})
+                         Button("-3", action: {AudioPlayer.shared.setPitch(-300)})
+                         Button("-2", action: {AudioPlayer.shared.setPitch(-200)})
+                         Button("-1", action: {AudioPlayer.shared.setPitch(-100)})
+                         Button(" 0", action: {AudioPlayer.shared.setPitch(0)})
+                         Button("+1", action: {AudioPlayer.shared.setPitch(100)})
+                         Button("+2", action: {AudioPlayer.shared.setPitch(200)})
+                         Button("+3", action: {AudioPlayer.shared.setPitch(300)})
+                         Button("+4", action: {AudioPlayer.shared.setPitch(400)})
                      } label: {
                          Image(systemName: "music.note")
+                             .font(.system(size: 24))
                      }
                      
                      Button(action: {
                      }) {
                          Image(systemName: "backward.end.fill")
+                             .font(.system(size: 24))
                      }
                      
                      Button(action: {
@@ -124,13 +127,14 @@ struct MusicPlayerView: View {
                          isPlaying.toggle() // 切换播放状态
                      }) {
                          Image(systemName: isPlaying ? "pause.circle.fill" : "play.circle.fill")
-                             .font(.system(size: 44))
+                             .font(.system(size: 50))
                      }
                      
                      Button(action: {
                          // 下一曲操作
                      }) {
                          Image(systemName: "forward.end.fill")
+                             .font(.system(size: 24))
                      }
                      
                      Menu {
@@ -138,9 +142,10 @@ struct MusicPlayerView: View {
                          Button("Playlist Option 2", action: {})
                      } label: {
                          Image(systemName: "music.note.list")
+                             .font(.system(size: 24))
                      }
                  }
-                 .padding()
+                 .padding(EdgeInsets(top: 0, leading: 100, bottom: 5, trailing: 100))
             }
 //            .navigationBarHidden(true) // 隐藏默认的导航栏，因为我们自定义了顶部控件
         }
