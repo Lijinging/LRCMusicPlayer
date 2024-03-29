@@ -41,6 +41,7 @@ struct PlaylistView: View {
     @State private var showAddMenu: Bool = false
     @State private var showSettingsMenu: Bool = false
     @State private var isPickerPresented = false
+    @State private var searchQuery = ""
     
     var body: some View {
             VStack {
@@ -56,6 +57,12 @@ struct PlaylistView: View {
                         Image(systemName: "plus.circle.fill")
                             .font(.system(size: 24))
                     }.padding()
+                    
+                    Spacer()
+                    
+                    TextField("搜索文件名", text: $searchQuery)
+                                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                                        .padding()
 
                     Spacer()
 
@@ -68,7 +75,7 @@ struct PlaylistView: View {
                     .padding()
                 }
 
-                List(files, id: \.name) { file in
+                List(filteredFiles, id: \.name) { file in
                     HStack {
                         if file.isDirectory {
                             Image(systemName: "folder")
@@ -120,6 +127,14 @@ struct PlaylistView: View {
                     self.showMusicPlayer = true
                 }
             })
+        }
+    
+    var filteredFiles: [FileInfo] {
+            if searchQuery.isEmpty {
+                return files
+            } else {
+                return files.filter { $0.name.localizedCaseInsensitiveContains(searchQuery) }
+            }
         }
     
     func loadFiles(from directory: URL? = nil) {
