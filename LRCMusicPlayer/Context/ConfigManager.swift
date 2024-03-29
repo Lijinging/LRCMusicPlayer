@@ -34,9 +34,15 @@ class ConfigManager: ObservableObject {
         }
     }
     
-    @Published var rampDuration: String {
+    @Published var fadeInDuration: String {
         didSet {
-            UserDefaults.standard.set(Float(rampDuration), forKey: "rampDuration")
+            UserDefaults.standard.set(Float(fadeInDuration), forKey: "fadeInDuration")
+        }
+    }
+    
+    @Published var fadeOutDuration: String {
+        didSet {
+            UserDefaults.standard.set(Float(fadeOutDuration), forKey: "fadeOutDuration")
         }
     }
     
@@ -55,7 +61,8 @@ class ConfigManager: ObservableObject {
     private init() {
         UserDefaults.standard.register(defaults: [
             "enabledVolumeRamp": true,
-            "rampDuration": 1.6,
+            "fadeInDuration": 0.5,
+            "fadeOutDuration": 2.0,
             "cyclicMode": kCyclicModeType_None,
             "fontSize": "24"
         ])
@@ -63,6 +70,7 @@ class ConfigManager: ObservableObject {
         self.enabledVolumeRamp = UserDefaults.standard.bool(forKey: "enabledVolumeRamp")
         self.cyclicMode = String(UserDefaults.standard.float(forKey: "cyclicMode"))
         self.fontSize = UserDefaults.standard.string(forKey: "fontSize") ?? ""
-        self.rampDuration = String(UserDefaults.standard.float(forKey: "rampDuration"))
+        self.fadeInDuration = String(UserDefaults.standard.float(forKey: "fadeInDuration"))
+        self.fadeOutDuration = String(UserDefaults.standard.float(forKey: "fadeOutDuration"))
     }
 }

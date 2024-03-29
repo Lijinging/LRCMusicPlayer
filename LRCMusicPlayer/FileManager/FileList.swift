@@ -40,12 +40,15 @@ struct PlaylistView: View {
     @State private var selectedMusic: FileInfo? = nil
     @State private var showAddMenu: Bool = false
     @State private var showSettingsMenu: Bool = false
+    @State private var isPickerPresented = false
     
     var body: some View {
             VStack {
                 HStack {
                     Menu {
-                        Button("导入", action: {})
+                        Button("导入", action: {
+                            isPickerPresented = true
+                        })
                         Button("设置", action: {
                             self.showSettingsMenu = true
                         })
@@ -101,6 +104,13 @@ struct PlaylistView: View {
             .sheet(isPresented: $showSettingsMenu) {
                 SettingsView()
             }
+            .sheet(isPresented: $isPickerPresented) {
+                DocumentPicker { urls in
+                    for url in urls {
+                        saveDocumentAt(url)
+                    }
+                }
+            }
             .fullScreenCover(isPresented: $showMusicPlayer) {
                 MusicPlayerView(dismiss: {
                     self.showMusicPlayer = false
@@ -137,6 +147,23 @@ struct PlaylistView: View {
             print("Error loading files: \(error)")
         }
     }
+    
+    func saveDocumentAt(_ url: URL) {
+            // 这里实现将文件保存到应用的Documents目录下的逻辑
+            // 示例代码省略了错误处理和具体实现细节
+            let fileManager = FileManager.default
+            guard let documentsPath = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+            let destinationURL = documentsPath.appendingPathComponent(url.lastPathComponent)
+            
+            do {
+                if fileManager.fileExists(atPath: destinationURL.path) {
+                    try fileManager.removeItem(at: destinationURL)
+                }
+                try fileManager.copyItem(at: url, to: destinationURL)
+            } catch {
+                print("无法保存文件: \(error)")
+            }
+        }
 
 }
 

@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import Combine
 
 class AudioPlayer {
     private var audioEngine: AVAudioEngine
@@ -14,11 +15,14 @@ class AudioPlayer {
     private var audioFile: AVAudioFile?
     private var audioFileURL: URL?
     private var volumeRampTimer: Timer?
-    private let volumeRampStep: Float = 0.08
+    private var volumeFadeInStep: Float = 0.1
+    private var volumeFadeOutStep: Float = 0.03125
     private let rampInterval: TimeInterval = 0.05
     private var currentPlaybackTime: TimeInterval = 0
     private var timeSinceSeek: TimeInterval = 0
     var isPaused: Bool = false
+    private var cancellables = Set<AnyCancellable>()
+    private let configManager:ConfigManager = ConfigManager.shared
     
     static let shared = AudioPlayer()
 
@@ -42,6 +46,22 @@ class AudioPlayer {
                 print("Failed to load file: \(error)")
             }
         }
+        
+        setupBindings()
+    }
+    
+    private func setupBindings() {
+        configManager.$fadeInDuration
+            .sink { [weak self] fadeInDuration in
+                self?.volumeFadeInStep = 0.05 / (Float(fadeInDuration) ?? 0.5)
+            }
+            .store(in: &cancellables)
+        
+        configManager.$fadeOutDuration
+            .sink { [weak self] fadeOutDuration in
+                self?.volumeFadeOutStep = 0.05 / (Float(fadeOutDuration) ?? 1.6)
+            }
+            .store(in: &cancellables)
     }
     
     func isLoaded() -> Bool {
@@ -144,7 +164,7 @@ class AudioPlayer {
         volumeRampTimer = Timer.scheduledTimer(withTimeInterval: rampInterval, repeats: true) { [weak self] timer in
             guard let self = self else { return }
             if self.audioPlayerNode.volume < 1.0 {
-                self.audioPlayerNode.volume += self.volumeRampStep
+                self.audioPlayerNode.volume += self.volumeFadeInStep
             } else {
                 timer.invalidate()
             }
@@ -171,7 +191,7 @@ class AudioPlayer {
         volumeRampTimer = Timer.scheduledTimer(withTimeInterval: rampInterval, repeats: true) { [weak self] timer in
             guard let self = self else { return }
             if self.audioPlayerNode.volume > 0 {
-                self.audioPlayerNode.volume -= self.volumeRampStep
+                self.audioPlayerNode.volume -= self.volumeFadeOutStep
             } else {
                 timer.invalidate()
                 completion()

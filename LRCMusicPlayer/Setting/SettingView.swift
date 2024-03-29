@@ -18,9 +18,19 @@ struct SettingsView: View {
                 }
                 
                 HStack {
-                    Text("淡入淡出时长")
+                    Text("淡入时长")
                     Spacer()
-                    TextField("1.6", text: $configManager.rampDuration)
+                    TextField("0.5", text: $configManager.fadeInDuration)
+                        .frame(width: 100)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .keyboardType(.numberPad)
+                        .multilineTextAlignment(.trailing)
+                }
+                
+                HStack {
+                    Text("淡出时长")
+                    Spacer()
+                    TextField("2.0", text: $configManager.fadeOutDuration)
                         .frame(width: 100)
                         .textFieldStyle(RoundedBorderTextFieldStyle())
                         .keyboardType(.numberPad)
