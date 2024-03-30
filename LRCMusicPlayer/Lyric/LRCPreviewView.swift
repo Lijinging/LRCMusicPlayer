@@ -35,7 +35,8 @@ struct LRCPreviewView: View {
             }
             .onChange(of: viewModel.currentLyricIndex) { newIndex in
                 withAnimation {
-                    scrollView.scrollTo(newIndex, anchor: .center)
+                    let targetIndex = newIndex < 0 ? 0 : newIndex
+                    scrollView.scrollTo(targetIndex, anchor: .center)
                 }
             }
             .onAppear {

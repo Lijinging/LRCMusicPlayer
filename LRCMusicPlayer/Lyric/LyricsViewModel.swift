@@ -10,9 +10,11 @@ import Combine
 
 class LRCViewModel: ObservableObject {
     private let playContext: PlayContext = PlayContext.shared
-    @Published var currentLyricIndex: Int = 0
+    @Published var currentLyricIndex: Int = -1
     var lyrics: [LyricLine] = []
+    private var offset: TimeInterval = 0
     private var cancellables = Set<AnyCancellable>()
+    private var lastTime: TimeInterval = 0
 
     init() {
         setupBindings()
@@ -27,28 +29,34 @@ class LRCViewModel: ObservableObject {
         
         playContext.$currentMusicPath
             .sink { [weak self] _ in
-                self?.currentLyricIndex = 0
+                self?.currentLyricIndex = -1
+                self?.offset = 0
             }
             .store(in: &cancellables)
 
         if let lrcInfo = playContext.getCurrentLRC() {
             self.lyrics = lrcInfo.lyrics
+            self.offset = lrcInfo.offset ?? 0
         }
     }
 
     private func updateCurrentLyricIndex(using currentTime: TimeInterval) {
         guard !lyrics.isEmpty else { return }
         
-        var newIndex = currentLyricIndex;
+        var newIndex = currentTime < lastTime ? -1 : currentLyricIndex;
         for index in currentLyricIndex+1..<lyrics.count {
-            if lyrics[index].time < currentTime {
+            if (lyrics[index].time + offset) < currentTime {
                 newIndex = index
             }
         }
 
         if newIndex != currentLyricIndex {
-            print("[TIME:\(currentTime)]update current lyric index \(String(describing: currentLyricIndex)) -> \(newIndex) : \(lyrics[newIndex])")
+            if newIndex >= 0 {
+                print("[TIME:\(currentTime)]update current lyric index \(String(describing: currentLyricIndex)) -> \(newIndex) : \(lyrics[newIndex])")
+            }
             currentLyricIndex = newIndex
         }
+        
+        lastTime = currentTime
     }
 }
